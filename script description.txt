@@ -1,0 +1,21 @@
+
+There are four main scripts used in raytracing simulation with foF2 and foE correction
+
+foF2_foE_correction.m
+
+This script generates the corrected foF2 and foE information for the whole latitude/longitude grid
+though out the time series. Need to run this script first. The output "IRI_correction.h5" should be in the same
+folder as "ray_whole_path.m". 
+
+gen_riono_grid_3d.m
+
+This is the function that generates the ionosphere. Put this script to the directory " ***\pharlap_4.3.4\src\matlab".
+
+ray_whole_path.m 
+
+This is the main script that generates the ionospher and the ray information. Output as *.mat file.  
+
+ray_whole_path_analysis.m
+
+This script loades the output raypath data from "ray_whole_path.m ". It selects the ray with restriction of receiving zone 
+and absorption restriction. The last two sections in this script generates the figures.
