@@ -143,7 +143,7 @@ function [iono_pf_grid, iono_pf_grid_5, collision_freq, Bx, By, Bz] = ...
   if (length(varargin) > 0) 
     iri_options = varargin{1};
   else
-      for i=1:41%number of longitude
+      for i=1:90%number of longitude
           for j=1:23% number of latitude
               for k=1:675% number of time series
     iri_options(i,j,k) = struct;% This is the iri_options when generating the ionosphere
@@ -397,7 +397,7 @@ function [iono_pf_subgrid, iono_pf_subgrid_5, collision_freq_subgrid] = ...
       num_heights = round((ht_max - ht_min)/ht_inc) + 1;
 
       % call IRI2016
-      UTselect=h5read('IRI_correction.h5','/UTselect');
+      UTselect=h5read('G:\McMurdo_revise_2\Figure\IRI_correction_Mar05.h5','/UTselect');
       hour=UT(4);
       hourselect=UTselect(4,:);
       minute=UT(5);
@@ -406,7 +406,7 @@ function [iono_pf_subgrid, iono_pf_subgrid_5, collision_freq_subgrid] = ...
       minpos=find(minute==minuteselect);
       UTfind=intersect(hourpos,minpos);%
 latitude=-90:1:-68;%latitude range of the ionosphere
-longitude=0:356;%longitude range of the ionosphere
+longitude=0:4:356;%longitude range of the ionosphere
 % make sure the latitude/longitude information consistent with the main
 % script. Otherwise, it will show error as "input(8) arry size...."
  latpos=lat==latitude;
