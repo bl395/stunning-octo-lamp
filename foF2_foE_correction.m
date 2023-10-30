@@ -31,7 +31,7 @@ longitude_length=length(longitude);
 %%
 %generate the foF2 and foE from iri2016
 parfor timecount=1:675
-    R12=12;
+    R12=-1;
     tic
     for latcount=1:lat_length
         for loncount=1:longitude_length
@@ -40,7 +40,7 @@ parfor timecount=1:675
             minute=double(min(timecount));
             hor=double(hour(timecount));
             UT = [2018,month,date,hor,minute];
-            [ionoiri, iono_extrairi] = iri2016(lat(latcount), longitude(loncount), R12, UT);
+            [ionoiri, iono_extrairi] = iri2020(lat(latcount), longitude(loncount), R12, UT);
             NmF2iri(loncount,latcount,timecount)=iono_extrairi(1);%lon*lat*time
             NmEiri(loncount,latcount,timecount)=iono_extrairi(5);
         end
@@ -57,18 +57,18 @@ h5write('IRI_correction.h5','/UTselect',UTselect);
 foF2_iri=h5read('IRI_correction.h5','/foF2IRI');
 foE_iri=h5read('IRI_correction.h5','/foEIRI');
 %%
-% Generate the foF2 and foE at VIPIR location from iri2016 and find the difference
-% between iri2016 and VIPIR observation.
+% Generate the foF2 and foE at VIPIR location from iri2020 and find the difference
+% between iri2020 and VIPIR observation.
 % Use the difference to correct the foF2 and foE found in previous section
-load('VIPIR_2019_02');
+load('VIPIR_2019_02.mat');
 parfor t=1:675
-    R12=12;
+    R12=-1;
     month=3;
     date=2;
     minute=double(min(t));
     hor=double(hour(t));
     UT = [2018,month,date,hor,minute];
-    [iono_jang, iono_extra_jang] = iri2016(-74.624,164.229 , R12, UT);
+    [iono_jang, iono_extra_jang] = iri2020(-74.624,164.229 , R12, UT);
     Nmf2_jang(t)=iono_extra_jang(1);
     NmE_jang(t)=iono_extra_jang(5);
 end
